@@ -1,0 +1,64 @@
+)Attr
+
+   ! Area(Dynamic) Extend(On)    Scroll(On)
+  01 Type(Datain ) Color(Red)    Caps(on) Pad('_')
+  02 Type(Dataout) Color(Turq)
+  03 Type(Dataout) Color(Red)
+  04 Type(Dataout) Color(Yellow)
+  05 Type(Dataout) Color(Green)
+  06 Type(Dataout) Color(Pink)
+  07 Type(Dataout) Color(Blue)
+  08 Type(Dataout) Color(White)
+  10 Type(Dataout) Color(Red)    Hilite(Reverse)
+  11 Type(Dataout) Color(Green)  Hilite(Reverse)
+  12 Type(Dataout) Color(Yellow) Hilite(Reverse)
+  13 Type(Dataout) Color(Turq)   Hilite(Reverse)
+  14 Type(Dataout) Color(Blue)   Hilite(Reverse)
+  #  Type(Text)    Color(White)  Hilite(Uscore)
+  ~  Type(Text)    Color(White)
+  $  Type(Input)   Color(Red)    Caps(On)       Pad('_')
+  @  Type(Text)    Color(Yellow) Caps(On)
+  *  Type(Text)    Color(Yellow) Caps(Off)
+
+)Body Window(80,24) Cmd(Zcmd)
+%GJN - SDS V1.2 - (CAP Display) -----------------------------------------------+
+%Command ===>_Zcmd                                            %Scroll ===>_Scrl+
++
+%Filters:+ CAP-Mode: Entering$z+Ejecting$z+Draining$z+Cleaning$z+Idle$z+
+           CAP-Type: PCAP$z+Cimarron$z+Clipper$z+StdClipper$z+OptClipper$z+
++           Jobname:$z       +
++
+#O#AC#L#C#CAP-Mode#Jobname #CAP Type    #Cap Status                            +
+!GJNHSC80                                                                      !
+#                                                                              +
++Line Commands:
++     Commands:*QS,QV,QD,QU,QC,AU,QE,QM,QF,QJ
+)Init
+  &ZCmd = ''
+
+  .zvars = '(CAPENT CAPEJT CAPDRA CAPCLE CAPIDL +
+             CAPPCAP CAPCIM CAPCLIP CAPSTC CAPOPTC JOBNAME)'
+
+  Vget (CAPENT CAPEJT CAPDRA CAPCLE CAPIDL JOBNAME) Profile
+  Vget (CAPPCAP CAPCIM CAPCLIP CAPSTC CAPOPTC) Profile
+
+)ReInit
+  .CSRPOS = &ZCMD
+  if (.msg ¬= ' ') .attr(.cursor) = 'Hilite(Reverse)'
+)Proc
+
+
+  Ver (&CAPENT,NB,List,Y,N)
+  Ver (&CAPEJT,NB,List,Y,N)
+  Ver (&CAPDRA,NB,List,Y,N)
+  Ver (&CAPCLE,NB,List,Y,N)
+  Ver (&CAPIDL,NB,List,Y,N)
+  Ver (&CAPPCAP,NB,list,Y,N)
+  Ver (&CAPCIM,NB,list,Y,N)
+  Ver (&CAPCLIP,NB,list,Y,N)
+  Ver (&CAPSTC,NB,list,Y,N)
+  Ver (&CAPOPTC,NB,list,Y,N)
+  Vput (CAPPCAP CAPCIM CAPCLIP CAPSTC CAPOPTC) Profile
+  Vput (CAPENT CAPEJT CAPDRA CAPCLE CAPIDL JOBNAME) Profile
+
+)End

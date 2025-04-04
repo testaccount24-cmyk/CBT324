@@ -1,0 +1,66 @@
+)Attr
+
+   ! Area(Dynamic) Extend(On)     Scroll(On)
+  01 Type(Datain ) Color(Red)     Caps(on) Pad('_')
+  02 Type(Dataout) Color(Turq)
+  03 Type(Dataout) Color(Red)
+  04 Type(Dataout) Color(Yellow)
+  05 Type(Dataout) Color(Green)
+  06 Type(Dataout) Color(Pink)
+  07 Type(Dataout) Color(Blue)
+  08 Type(Dataout) Color(White)
+  10 Type(Dataout) Color(Red)    Hilite(Reverse)
+  11 Type(Dataout) Color(Green)  Hilite(Reverse)
+  12 Type(Dataout) Color(Yellow) Hilite(Reverse)
+  13 Type(Dataout) Color(Turq)   Hilite(Reverse)
+  14 Type(Dataout) Color(Blue)   Hilite(Reverse)
+  #  Type(Text)    Color(White)  Hilite(Uscore)
+  ~  Type(Text)    Color(White)
+  $  Type(Input)   Color(Red)    Caps(On)       Pad('_')
+  @  Type(Text)    Color(Yellow) Caps(On)
+  *  Type(Text)    Color(Yellow) Caps(Off)
+
+)Body Cmd(Zcmd)
+%GJN - SDS V1.2 - (Transport Display) -----------------------------------------+
+%Command ===>_Zcmd                                            %Scroll ===>_Scrl+
++
+%Filters:+     Online:$z+        +3400$z+3423$z+3480$z+3490$z+3591$z+
++        +    Offline:$z+        +HSCType:$z       + (or blank for all)
++        +  Allocated:$z+
++        +Unallocated:$z+
++
++
+#O#Addr#Type#HSCType #Status #Volume#Jobname #ASID#AC#L#InSilo#StartIO#Seq+
+!GJNHSC50                                                                      !
+#                                                                              +
++Line Commands:*V+Display Volume,*?+Display Transport
++     Commands:*QS,QV,QD,QU,QC,AU,QE,QM,QF,QJ
+)Init
+
+ &ZCmd = ''
+ .zvars = '(Online D3400 D3423 D3480 D3490 D3591 Offline HSCType +
+            Aloc NoAloc)'
+
+ Vget (Online Offline Aloc NoAloc D3400 D3423 D3480 D3490 D3591) profile
+ Vget (HSCType) Profile
+
+)ReInit
+
+ .CSRPOS = &ZCMD
+ if (.msg ¬= ' ') .attr(.cursor) = 'Hilite(Reverse)'
+
+)Proc
+
+ Ver (&Online,NB,list,Y,N)
+ Ver (&D3400,NB,list,Y,N)
+ Ver (&D3423,NB,list,Y,N)
+ Ver (&D3480,NB,list,Y,N)
+ Ver (&D3490,NB,list,Y,N)
+ Ver (&D3591,NB,list,Y,N)
+ Ver (&Offline,NB,list,Y,N)
+ Ver (&Aloc,NB,list,Y,N)
+ Ver (&NoAloc,NB,list,Y,N)
+ Vput (Online Offline Aloc NoAloc D3400 D3423 D3480 D3490 D3591) Profile
+ Vput (HSCType) Profile
+
+)End

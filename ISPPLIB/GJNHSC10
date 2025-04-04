@@ -1,0 +1,37 @@
+)Attr
+
+   ! Area(Dynamic) Extend(On)    Scroll(On)
+  01 Type(Datain ) Color(Red)    Caps(on) Pad('_')
+  09 Type(Datain ) Color(Red)    Caps(on) Pad('_')
+  02 Type(Dataout) Color(Turq)
+  03 Type(Dataout) Color(Red)
+  04 Type(Dataout) Color(Yellow)
+  05 Type(Dataout) Color(Green)
+  06 Type(Dataout) Color(Pink)
+  07 Type(Dataout) Color(Blue)
+  08 Type(Dataout) Color(White)
+  10 Type(Dataout) Color(Red)    Hilite(Reverse)
+  11 Type(Dataout) Color(Green)  Hilite(Reverse)
+  12 Type(Dataout) Color(Yellow) Hilite(Reverse)
+  13 Type(Dataout) Color(Turq)   Hilite(Reverse)
+  14 Type(Dataout) Color(Blue)   Hilite(Reverse)
+  20 Type(Dataout) Color(White)  Hilite(Uscore)
+  #  Type(Text)    Color(White)  Hilite(Uscore)
+  $  Type(Input)   Color(Red)    Caps(On)       Pad('_')
+  @  Type(Text)    Color(Yellow) Caps(On)
+  *  Type(Text)    Color(Yellow) Caps(Off)
+
+)Body
+%GJN - SDS V1.2 - (LSM Display) -----------------------------------------------+
+%Command ===>_Zcmd                                            %Scroll ===>_Scrl+
++
+!GJNHSC10                                                                      !
+#                                                                              +
++Line Commands:*V+Display Volume,*?+Display Transport+
++     Commands:*QS,QV,QD,QU,QC,AU,QE,QM,QF,QJ
+)Init
+)ReInit
+  .CSRPOS = &ZCMD
+  if (.msg ¬= ' ') .attr(.cursor) = 'Hilite(Reverse)'
+)Proc
+)End

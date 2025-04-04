@@ -1,0 +1,45 @@
+)Attr
+
+   ! Area(Dynamic) Extend(On)    Scroll(On)
+  01 Type(Datain ) Color(Red)    Caps(on) Pad('_')
+  02 Type(Dataout) Color(Turq)
+  03 Type(Dataout) Color(Red)
+  04 Type(Dataout) Color(Yellow)
+  05 Type(Dataout) Color(Green)
+  06 Type(Dataout) Color(Pink)
+  07 Type(Dataout) Color(Blue)
+  08 Type(Dataout) Color(White)
+  10 Type(Dataout) Color(Red)    Hilite(Reverse)
+  11 Type(Dataout) Color(Green)  Hilite(Reverse)
+  12 Type(Dataout) Color(Yellow) Hilite(Reverse)
+  13 Type(Dataout) Color(Turq)   Hilite(Reverse)
+  14 Type(Dataout) Color(Blue)   Hilite(Reverse)
+  #  Type(Text)    Color(White)  Hilite(Uscore)
+  ~  Type(Text)    Color(White)
+  $  Type(Input)   Color(Red)    Caps(On)       Pad('_')
+  @  Type(Text)    Color(Yellow) Caps(On)
+  *  Type(Text)    Color(Yellow) Caps(Off)
+  20 Type(Text)    Color(Red)    Hilite(Reverse)
+  21 Type(Text)    Color(Blue)   Hilite(Reverse)
+  22 Type(Text)    Color(Green)  Hilite(Reverse)
+
+)Body Window(80,24) Cmd(Zcmd)
+%GJN - SDS V1.2 - (Free/Scratch Display) --------------------------------------+
+%Command ===>_Zcmd                                            %Scroll ===>_Scrl+
++
++                           %<---Scratch      <---Specific--->         Free--->
+#O#AC#L#    Free# Scratch##A#0........20........40........60........80........'+
+!GJNHSCG0                                                                      !
+#                                                                              +
++       Legend: +=Scratch, +=Specific, +=Free Cells+
++Line Commands:*A+Add Free Cells
++     Commands:*QS,QV,QD,QU,QC,AU,QE,QM,QF,QJ
+)Init
+
+  &ZCmd = ''
+
+)ReInit
+  .CSRPOS = &ZCMD
+  if (.msg ¬= ' ') .attr(.cursor) = 'Hilite(Reverse)'
+)Proc
+)End

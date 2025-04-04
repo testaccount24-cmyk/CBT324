@@ -1,0 +1,32 @@
+)Attr
+
+  $  Type(Input)   Color(Red)    Caps(On)  Pad('_')
+
+)Body Window(80,24) Cmd(Zcmd)
+%GJN - SDS V1.2 - (Auto Refresh Settings) -------------------------------------+
+%Command ===>_Zcmd
++
++   This option will set the parameters for the Auto Refresh functionality
++   of SDS. Auto Refresh will update the screen for the specified number of
++   times, at the specified interval.
++
++           Number of Auto-Refreshes:$z  +
++    Interval between Auto-Refreshes:$z +
++
++
++ ** To exit without setting Auto Refresh values use the END command
+)Init
+
+  &ZCmd = ''
+  .zvars='(TIMES SECONDS)'
+
+)ReInit
+  .CSRPOS = &ZCMD
+  if (.msg ¬= ' ') .attr(.cursor) = 'Hilite(Reverse)'
+)Proc
+
+  Ver (&TIMES,NB,Range,1,999)
+  Ver (&SECONDS,NB,Range,1,60)
+  Ver (&SECONDS,NB,Pict,99)
+
+)End
